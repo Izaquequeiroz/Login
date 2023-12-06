@@ -61,37 +61,65 @@
             <input id="input" type="button" value="Entrar" />
         </form>
 
-       <fb:login-button 
+       
+
+        
+<fb:login-button 
 scope="public_profile,email"
 onlogin="checkLoginState();">
 </fb:login-button>
-       
+
 
         
          
 
     </div>
 </body>
-
 <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{197377426763497}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '197377426763497',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v18.0'
+      });
+  
+      FB.AppEvents.logPageView();   
+  
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+  
+    function statusChangeCallback(response) {
+      if (response.status === 'connected') {
+        console.log('Usuário conectado com o Facebook!');
+        // Aqui você pode chamar uma função para processar o login no seu sistema
+      } else {
+        console.log('Usuário não conectado com o Facebook.');
+      }
+    }
+  
+    function loginWithFacebook() {
+      FB.login(function(response) {
+        statusChangeCallback(response);
+      }, {scope: 'public_profile,email'});
+    }
+    function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+  </script>
 </html>
